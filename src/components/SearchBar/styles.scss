@@ -1,0 +1,17 @@
+.search-bar {
+  background-color: var(--neutral-bg-color);
+  border-radius: 50vh;
+  border: none;
+  appearance: none;
+  outline: none;
+  color: var(--accent-color);
+  font-size: 14px;
+  margin-top: 52px;
+  margin-bottom: 4px;
+  padding: 8px 22px;
+  flex: 1;
+
+  &::placeholder {
+    color: var(--accent-color-disabled);
+  }
+}
