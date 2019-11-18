@@ -1,4 +1,5 @@
 import React from 'react';
+import Routes from '../../routes';
 import './styles.scss';
 
 const App: React.FC = () => {
@@ -7,6 +8,9 @@ const App: React.FC = () => {
       <header className="header">
         <h1>The Movie Catalog</h1>
       </header>
+      <div className="content">
+        <Routes />
+      </div>
     </div>
   );
 };
