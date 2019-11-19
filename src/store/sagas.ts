@@ -58,7 +58,6 @@ export function* fetchSearchResultPage(action: FetchSearchResultPageAction) {
 
   const term = yield select(state => state.term);
 
-  // yield delay(500);
   const { data } = yield call(api.get, '/search/movie', {
     params: { ...api.defaults.params, query: term, page: action.page },
   });

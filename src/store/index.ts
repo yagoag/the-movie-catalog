@@ -21,7 +21,7 @@ const INITIAL_STATE: SearchState = {
   results: null,
   genres: new Map<number, string>(),
   isLoading: false,
-  currentPage: 0,
+  currentPage: 1,
   totalPages: 0,
   virtualPage: 1,
 };
@@ -32,7 +32,7 @@ function reducer(
 ): SearchState {
   switch (action.type) {
     case SET_SEARCH_TERM:
-      return { ...state };
+      return { ...state, term: action.term };
     case SET_SEARCH_RESULTS:
       return {
         ...state,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SearchState } from '../../store/types';
-import { setVirtualPage } from '../../store/actions';
+import { setVirtualPage, fetchSearchResultPage } from '../../store/actions';
 import './styles.scss';
 
 export const pageSize = 20;
@@ -13,24 +13,15 @@ const Pagination: React.FC = () => {
   const virtualPage = useSelector((state: SearchState) => state.virtualPage);
   const dispatch = useDispatch();
 
+  const calculatedPage =
+    Math.floor(((virtualPage - 1) * virtualPageSize) / pageSize) + 1;
+  if (calculatedPage !== page) {
+    dispatch(fetchSearchResultPage(calculatedPage));
+  }
+
   const totalVirtualPages =
     totalPages * (pageSize / (virtualPageSize || pageSize));
-
-  let renderedPages: number[] = [];
-
-  if (virtualPage < 3) {
-    for (let i = 1; i <= Math.min(5, totalVirtualPages); i++) {
-      renderedPages.push(i);
-    }
-  } else if (virtualPage < totalVirtualPages - 2) {
-    for (let i = virtualPage - 2; i <= virtualPage + 2; i++) {
-      renderedPages.push(i);
-    }
-  } else {
-    for (let i = totalVirtualPages - 4; i <= totalVirtualPages; i++) {
-      renderedPages.push(i);
-    }
-  }
+  const renderedPages = calculateRenderedPages(virtualPage, totalVirtualPages);
 
   return (
     <div className="pagination">
@@ -51,6 +42,26 @@ const Pagination: React.FC = () => {
       )}
     </div>
   );
+};
+
+const calculateRenderedPages = (page: number, totalPages: number) => {
+  let renderedPages: number[] = [];
+
+  if (page < 3) {
+    for (let i = 1; i <= Math.min(5, totalPages); i++) {
+      renderedPages.push(i);
+    }
+  } else if (page < totalPages - 2) {
+    for (let i = page - 2; i <= page + 2; i++) {
+      renderedPages.push(i);
+    }
+  } else {
+    for (let i = totalPages - 4; i <= totalPages; i++) {
+      renderedPages.push(i);
+    }
+  }
+
+  return renderedPages;
 };
 
 export default Pagination;

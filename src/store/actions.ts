@@ -9,6 +9,7 @@ import {
   SET_TOTAL_PAGES,
   SET_SEARCH_TERM,
   SET_VIRTUAL_RESULT_PAGE,
+  PAGE_FETCH_REQUESTED,
 } from './types';
 import { Genre } from '../components/SearchResult';
 
@@ -23,6 +24,13 @@ export function fetchSearchResults(term: string): SearchActionTypes {
   return {
     type: SEARCH_FETCH_REQUESTED,
     term,
+  };
+}
+
+export function fetchSearchResultPage(page: number): SearchActionTypes {
+  return {
+    type: PAGE_FETCH_REQUESTED,
+    page,
   };
 }
 
