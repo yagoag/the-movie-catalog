@@ -1,17 +1,28 @@
 import { call, delay, put, select, takeLatest } from 'redux-saga/effects';
 import {
   SEARCH_FETCH_REQUESTED,
+  PAGE_FETCH_REQUESTED,
   FetchSearchResultsAction,
   SearchState,
+  FetchSearchResultPageAction,
 } from './types';
 import { api } from '../services/api';
-import { setSearchResults, setMovieGenres, setIsLoading } from './actions';
+import {
+  setSearchResults,
+  setMovieGenres,
+  setIsLoading,
+  setResultPage,
+  setTotalPages,
+  setSearchTerm,
+} from './actions';
 
 function getGenres(state: SearchState): Map<number, string> {
   return state.genres;
 }
 
 export function* fetchSearchResults(action: FetchSearchResultsAction) {
+  yield put(setSearchTerm(action.term));
+
   if (action.term === '') {
     yield put(setSearchResults(null));
   } else {
@@ -33,14 +44,34 @@ export function* fetchSearchResults(action: FetchSearchResultsAction) {
       params: { ...api.defaults.params, query: action.term },
     });
 
-    console.log({ data });
-    const { results } = data;
+    const { results, page, total_pages } = data;
 
+    yield put(setResultPage(page));
+    yield put(setTotalPages(total_pages));
     yield put(setSearchResults(results));
     yield put(setIsLoading(false));
   }
 }
 
+export function* fetchSearchResultPage(action: FetchSearchResultPageAction) {
+  yield put(setIsLoading(true));
+
+  const term = yield select(state => state.term);
+
+  // yield delay(500);
+  const { data } = yield call(api.get, '/search/movie', {
+    params: { ...api.defaults.params, query: term, page: action.page },
+  });
+
+  const { results, page, total_pages } = data;
+
+  yield put(setResultPage(page));
+  yield put(setTotalPages(total_pages));
+  yield put(setSearchResults(results));
+  yield put(setIsLoading(false));
+}
+
 export default function* searchSaga() {
   yield takeLatest(SEARCH_FETCH_REQUESTED, fetchSearchResults);
+  yield takeLatest(PAGE_FETCH_REQUESTED, fetchSearchResultPage);
 }

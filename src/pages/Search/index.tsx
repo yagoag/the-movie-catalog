@@ -2,18 +2,42 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { SearchState } from '../../store/types';
 import SearchBar from '../../components/SearchBar';
-import SearchResult from '../../components/SearchResult';
+import SearchResult, {
+  Props as SearchResultType,
+} from '../../components/SearchResult';
+import Pagination, {
+  virtualPageSize,
+  pageSize,
+} from '../../components/Pagination';
 import './styles.scss';
 
 const Search: React.FC = () => {
   const searchResults = useSelector((state: SearchState) => state.results);
+  const isLoading = useSelector((state: SearchState) => state.isLoading);
+  const virtualPage = useSelector((state: SearchState) => state.virtualPage);
+
+  const shownResults: SearchResultType[] = [];
+  if (searchResults !== null) {
+    const initialShownResult = ((virtualPage - 1) * virtualPageSize) % pageSize;
+    for (
+      let i = initialShownResult;
+      i < initialShownResult + virtualPageSize;
+      i++
+    ) {
+      shownResults.push(searchResults[i]);
+    }
+  }
 
   return (
     <div className="search">
       <SearchBar />
-      {searchResults !== null ? (
+      {isLoading ? (
+        <div>Carregando...</div>
+      ) : searchResults !== null ? (
         searchResults.length !== 0 ? (
-          searchResults.map(result => <SearchResult {...result} />)
+          shownResults.map(result => (
+            <SearchResult key={result.id} {...result} />
+          ))
         ) : (
           <div className="no-result">
             Sua busca não retornou nenhum resultado
@@ -21,6 +45,9 @@ const Search: React.FC = () => {
         )
       ) : (
         <div className="no-result">Busque um filme para iniciar!</div>
+      )}
+      {!isLoading && searchResults && searchResults.length > 0 && (
+        <Pagination />
       )}
     </div>
   );

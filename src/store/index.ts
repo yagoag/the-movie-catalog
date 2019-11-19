@@ -8,14 +8,22 @@ import {
   SearchState,
   ApiSearchResult,
   SET_IS_LOADING,
+  SET_RESULT_PAGE,
+  SET_TOTAL_PAGES,
+  SET_VIRTUAL_RESULT_PAGE,
+  SET_SEARCH_TERM,
 } from './types';
 import searchSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 const INITIAL_STATE: SearchState = {
+  term: '',
   results: null,
   genres: new Map<number, string>(),
   isLoading: false,
+  currentPage: 0,
+  totalPages: 0,
+  virtualPage: 1,
 };
 
 function reducer(
@@ -23,6 +31,8 @@ function reducer(
   action: SearchActionTypes,
 ): SearchState {
   switch (action.type) {
+    case SET_SEARCH_TERM:
+      return { ...state };
     case SET_SEARCH_RESULTS:
       return {
         ...state,
@@ -38,6 +48,12 @@ function reducer(
       };
     case SET_IS_LOADING:
       return { ...state, isLoading: action.isLoading };
+    case SET_RESULT_PAGE:
+      return { ...state, currentPage: action.currentPage };
+    case SET_TOTAL_PAGES:
+      return { ...state, totalPages: action.totalPages };
+    case SET_VIRTUAL_RESULT_PAGE:
+      return { ...state, virtualPage: action.virtualPage };
     default:
       return state;
   }
@@ -53,8 +69,6 @@ function mapSearchResultsFromApi(
   if (results === null) {
     return null;
   }
-
-  console.log({ genres });
 
   return results.map(res => ({
     id: res.id,
