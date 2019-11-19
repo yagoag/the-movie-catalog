@@ -8,6 +8,10 @@
     width: 160px;
   }
 
+  .movie-info {
+    flex-grow: 1;
+  }
+
   .movie-rating {
     background-color: var(--accent-color);
     border: 3px solid var(--header-text-color);

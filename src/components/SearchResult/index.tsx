@@ -1,12 +1,12 @@
 import React from 'react';
 import './styles.scss';
 
-interface Genres {
+export interface Genres {
   id: number;
   name: string;
 }
 
-interface Props {
+export interface Props {
   title: string;
   date: string;
   rating: number;
