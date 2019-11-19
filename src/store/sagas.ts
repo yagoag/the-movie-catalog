@@ -1,17 +1,44 @@
-import { call, delay, put, takeLatest } from 'redux-saga/effects';
-import { SEARCH_FETCH_REQUESTED, FetchSearchResultsAction } from './types';
+import { call, delay, put, select, takeLatest } from 'redux-saga/effects';
+import {
+  SEARCH_FETCH_REQUESTED,
+  FetchSearchResultsAction,
+  SearchState,
+} from './types';
 import { api } from '../services/api';
-import { setSearchResults } from './actions';
+import { setSearchResults, setMovieGenres, setIsLoading } from './actions';
+
+function getGenres(state: SearchState): Map<number, string> {
+  return state.genres;
+}
 
 export function* fetchSearchResults(action: FetchSearchResultsAction) {
-  yield delay(1000);
-  const { data } = yield call(api.get, '/search/movie', {
-    params: { ...api.defaults.params, query: action.term },
-  });
+  if (action.term === '') {
+    yield put(setSearchResults(null));
+  } else {
+    yield put(setIsLoading(true));
 
-  const { results } = data;
-  console.log(results);
-  yield put(setSearchResults(results));
+    if (!(yield select(getGenres)).keys().length) {
+      const genres = yield call(api, '/genre/movie/list', {
+        params: { ...api.defaults.params },
+      });
+      yield put(setMovieGenres(genres.data.genres));
+      // TODO: The results are paged, we might need to go over all of them.
+      // In that case, it might be better to separate this call into another
+      // action, and maybe run it and store in local storage so we don't need
+      // to repeat it every single time the page reloads.
+    }
+
+    yield delay(500);
+    const { data } = yield call(api.get, '/search/movie', {
+      params: { ...api.defaults.params, query: action.term },
+    });
+
+    console.log({ data });
+    const { results } = data;
+
+    yield put(setSearchResults(results));
+    yield put(setIsLoading(false));
+  }
 }
 
 export default function* searchSaga() {

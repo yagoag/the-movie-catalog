@@ -1,17 +1,18 @@
 import React from 'react';
 import './styles.scss';
 
-export interface Genres {
+export interface Genre {
   id: number;
   name: string;
 }
 
 export interface Props {
+  id: number;
   title: string;
   date: string;
   rating: number;
   overview: string;
-  genres: Genres[];
+  genres: Genre[];
   posterUrl: string;
 }
 
@@ -24,9 +25,11 @@ const SearchResult: React.FC<Props> = ({
   posterUrl,
 }) => (
   <div className="search-result">
-    <div className="movie-poster">
-      <img src={`https://image.tmdb.org/t/p/w200${posterUrl}`} alt={title} />
-    </div>
+    <img
+      src={`https://image.tmdb.org/t/p/w200${posterUrl}`}
+      alt={title}
+      className="movie-poster"
+    />
     <div className="movie-info">
       <h2 className="movie-title">{title}</h2>
       <div className="search-result-subtitle">
