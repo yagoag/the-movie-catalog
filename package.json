@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "homepage": "https://yagoag.github.io/the-movie-catalog",
+  "homepage": "https://themoviecatalog.netlify.com/",
   "dependencies": {
     "@types/jest": "24.0.23",
     "@types/node": "12.12.8",
@@ -29,9 +29,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -54,7 +52,6 @@
     "axios-mock-adapter": "^1.17.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "gh-pages": "^2.1.1",
     "redux-mock-store": "^1.5.3"
   }
 }
