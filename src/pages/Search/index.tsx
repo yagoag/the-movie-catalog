@@ -15,13 +15,16 @@ const Search: React.FC = () => {
   const searchResults = useSelector((state: SearchState) => state.results);
   const isLoading = useSelector((state: SearchState) => state.isLoading);
   const virtualPage = useSelector((state: SearchState) => state.virtualPage);
+  const totalResults = useSelector((state: SearchState) => state.totalResults);
 
   const shownResults: SearchResultType[] = [];
   if (searchResults !== null) {
     const initialShownResult = ((virtualPage - 1) * virtualPageSize) % pageSize;
+    const remainingResults = totalResults - (virtualPage - 1) * virtualPageSize;
+
     for (
       let i = initialShownResult;
-      i < initialShownResult + virtualPageSize;
+      i < initialShownResult + Math.min(virtualPageSize, remainingResults);
       i++
     ) {
       shownResults.push(searchResults[i]);

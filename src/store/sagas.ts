@@ -14,6 +14,7 @@ import {
   setResultPage,
   setTotalResults,
   setSearchTerm,
+  setVirtualPage,
 } from './actions';
 
 function getGenres(state: SearchState): Map<number, string> {
@@ -47,6 +48,7 @@ export function* fetchSearchResults(action: FetchSearchResultsAction) {
     const { results, page, total_results } = data;
 
     yield put(setResultPage(page));
+    yield put(setVirtualPage(1));
     yield put(setTotalResults(total_results));
     yield put(setSearchResults(results));
   }
