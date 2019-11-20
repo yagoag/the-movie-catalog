@@ -3,12 +3,9 @@ import { useRouteMatch, match } from 'react-router';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { api } from '../../services/api';
 import { Genre } from '../../components/SearchResult';
+import languageNames from '../../i18n/languages.pt-BR';
+import statusNames from '../../i18n/status.pt-BR';
 import './styles.scss';
-
-interface Language {
-  iso_639_1: string;
-  name: string;
-}
 
 interface ApiMovieInfo {
   title: string;
@@ -21,7 +18,7 @@ interface ApiMovieInfo {
   budget: number;
   revenue: number;
   runtime: number;
-  spoken_languages: Language[];
+  original_language: string;
 }
 
 const Movie: React.FC = () => {
@@ -56,15 +53,15 @@ const Movie: React.FC = () => {
             <div className="info-table">
               <div>
                 <h4>Situação</h4>
-                {info && info.status}
+                {info && translateStatus(info.status)}
               </div>
               <div>
                 <h4>Idioma</h4>
-                {info ? info.spoken_languages[0].name : <Skeleton />}
+                {info ? getLanguageName(info.original_language) : <Skeleton />}
               </div>
               <div>
                 <h4>Duração</h4>
-                {info ? info.runtime : <Skeleton />}
+                {info ? formatTime(info.runtime) : <Skeleton />}
               </div>
               <div>
                 <h4>Orçamento</h4>
@@ -125,8 +122,28 @@ const Movie: React.FC = () => {
   );
 };
 
-const formatCurrency = (value: number) =>
-  // value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-  '$' + Number(value.toFixed(2)).toLocaleString();
+const formatCurrency = (value: number): string =>
+  '$' +
+  Number(value + 0.001)
+    .toLocaleString()
+    .slice(0, -1);
+
+const formatTime = (minutes: number): string => {
+  let formatted: string = '';
+
+  if (minutes / 60 > 1) {
+    formatted += `${Math.floor(minutes / 60)}h `;
+  }
+
+  formatted += `${minutes % 60}min`;
+
+  return formatted;
+};
+
+const translateStatus = (status: string): string =>
+  statusNames.get(status) || status;
+
+const getLanguageName = (code: string): string =>
+  languageNames.get(code) || code;
 
 export default Movie;
