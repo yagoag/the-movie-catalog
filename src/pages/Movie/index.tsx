@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouteMatch, match } from 'react-router';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import Skeleton from 'react-loading-skeleton';
 import { api } from '../../services/api';
 import { Genre } from '../../components/SearchResult';
 import languageNames from '../../i18n/languages.pt-BR';
@@ -37,7 +37,7 @@ const Movie: React.FC = () => {
   }, [routeMatch.params.id]);
 
   return (
-    <SkeletonTheme color="#bdbdbd" highlightColor="#f2f2f2">
+    <>
       <div className="movie-title">
         <h1>{info ? info.title : <Skeleton />}</h1>
         <div className="date">{info ? info.release_date : <Skeleton />}</div>
@@ -118,7 +118,7 @@ const Movie: React.FC = () => {
           ></iframe>
         )}
       </div>
-    </SkeletonTheme>
+    </>
   );
 };
 

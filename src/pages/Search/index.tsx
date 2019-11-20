@@ -32,19 +32,26 @@ const Search: React.FC = () => {
     <div className="search">
       <SearchBar />
       {isLoading ? (
-        <div>Carregando...</div>
-      ) : searchResults !== null ? (
+        <SearchResult
+          id={0}
+          title=""
+          date=""
+          rating={0}
+          overview=""
+          genres={[]}
+          posterUrl=""
+          loading
+        />
+      ) : searchResults ? (
         searchResults.length !== 0 ? (
           shownResults.map(result => (
             <SearchResult key={result.id} {...result} />
           ))
         ) : (
-          <div className="no-result">
-            Sua busca não retornou nenhum resultado
-          </div>
+          <div className="message">Sua busca não retornou nenhum resultado</div>
         )
       ) : (
-        <div className="no-result">Busque um filme para iniciar!</div>
+        <div className="message">Busque um filme para iniciar!</div>
       )}
       {!isLoading && searchResults && searchResults.length > 0 && (
         <Pagination />
