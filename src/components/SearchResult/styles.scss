@@ -4,6 +4,10 @@
   background-color: var(--neutral-bg-color);
   margin-top: 42px;
 
+  a {
+    text-decoration: none;
+  }
+
   .movie-poster {
     width: 160px;
     height: auto;
@@ -26,8 +30,7 @@
     align-items: center;
     font-size: 16px;
     color: var(--header-text-color);
-    margin: 0 12px 0 16px;
-    margin-top: -26px;
+    margin: -26px 12px 0 16px;
   }
 
   .movie-title {
@@ -61,15 +64,5 @@
     margin: 0 24px;
     display: flex;
     flex-direction: row;
-
-    .tag {
-      border: 1px solid var(--accent-color);
-      border-radius: 50vh;
-      background-color: #ffffff;
-      font-family: 'Abel', sans-serif;
-      color: var(--accent-color);
-      padding: 2px 8px;
-      margin-right: 6px;
-    }
   }
 }

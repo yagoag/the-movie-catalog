@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './styles.scss';
 
 export interface Genre {
@@ -17,6 +18,7 @@ export interface Props {
 }
 
 const SearchResult: React.FC<Props> = ({
+  id,
   title,
   date,
   rating,
@@ -31,7 +33,9 @@ const SearchResult: React.FC<Props> = ({
       className="movie-poster"
     />
     <div className="movie-info">
-      <h2 className="movie-title">{title}</h2>
+      <Link to={`/movie/${id}`}>
+        <h2 className="movie-title">{title}</h2>
+      </Link>
       <div className="search-result-subtitle">
         <h3 className="movie-rating">{Math.floor(rating * 10)}%</h3>
         <div className="movie-date">{date}</div>
