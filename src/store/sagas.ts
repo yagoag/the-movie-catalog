@@ -49,8 +49,9 @@ export function* fetchSearchResults(action: FetchSearchResultsAction) {
     yield put(setResultPage(page));
     yield put(setTotalPages(total_pages));
     yield put(setSearchResults(results));
-    yield put(setIsLoading(false));
   }
+
+  yield put(setIsLoading(false));
 }
 
 export function* fetchSearchResultPage(action: FetchSearchResultPageAction) {
