@@ -3,8 +3,7 @@ import { useRouteMatch, match } from 'react-router';
 import Skeleton from 'react-loading-skeleton';
 import { api } from '../../services/api';
 import { Genre } from '../../components/SearchResult';
-import languageNames from '../../i18n/languages.pt-BR';
-import statusNames from '../../i18n/status.pt-BR';
+import { formatDate, translateStatus, getLanguageName } from '../../format';
 import './styles.scss';
 
 interface ApiMovieInfo {
@@ -40,7 +39,9 @@ const Movie: React.FC = () => {
     <>
       <div className="movie-title">
         <h1>{info ? info.title : <Skeleton />}</h1>
-        <div className="date">{info ? info.release_date : <Skeleton />}</div>
+        <div className="date">
+          {info ? formatDate(info.release_date) : <Skeleton />}
+        </div>
       </div>
       <div className="movie-details">
         <div className="content">
@@ -139,11 +140,5 @@ const formatTime = (minutes: number): string => {
 
   return formatted;
 };
-
-const translateStatus = (status: string): string =>
-  statusNames.get(status) || status;
-
-const getLanguageName = (code: string): string =>
-  languageNames.get(code) || code;
 
 export default Movie;

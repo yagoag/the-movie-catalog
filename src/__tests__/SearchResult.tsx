@@ -1,11 +1,13 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import SearchResult from '../components/SearchResult';
+import { formatDate } from '../format';
 
 const movie = {
+  id: 1,
   title: 'The Fast and the Furious: Tokyo Drift',
   rating: 6.2,
-  date: '06/03/2006',
+  date: '2006-06-03',
   overview:
     'In order to avoid a jail sentence, Sean Boswell heads to Tokyo to live with his military father. In a low-rent section of the city, Shaun gets caught up in the underground world of drift racing',
   genres: [
@@ -41,7 +43,7 @@ describe('SearchResult', () => {
   });
 
   it('renders the movie poster', () => {
-    expect(wrapper.find('.movie-poster>img').prop('src')).toContain(
+    expect(wrapper.find('.movie-poster').prop('src')).toContain(
       movie.posterUrl,
     );
   });
@@ -55,7 +57,7 @@ describe('SearchResult', () => {
   });
 
   it('shows movie release date', () => {
-    expect(wrapper.find('.movie-date').text()).toBe(movie.date);
+    expect(wrapper.find('.movie-date').text()).toBe(formatDate(movie.date));
   });
 
   it('shows movie overview', () => {

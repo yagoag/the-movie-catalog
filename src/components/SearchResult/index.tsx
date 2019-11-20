@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './styles.scss';
 import Skeleton from 'react-loading-skeleton';
+import { Link } from 'react-router-dom';
+import { formatDate } from '../../format';
+import './styles.scss';
 
 export interface Genre {
   id: number;
@@ -50,7 +51,7 @@ const SearchResult: React.FC<Props> = ({
           {!loading ? `${Math.floor(rating * 10)}%` : <Skeleton width="25px" />}
         </h3>
         <div className="movie-date">
-          {!loading ? date : <Skeleton width="70px" />}
+          {!loading ? formatDate(date) : <Skeleton width="70px" />}
         </div>
       </div>
       <div className="movie-overview">
