@@ -86,10 +86,15 @@ const Movie: React.FC = () => {
           </div>
           <div className="last-details">
             <div className="movie-genres">
-              {info &&
+              {info ? (
                 info.genres.map(genre => (
                   <div className="tag">{genre.name}</div>
-                ))}
+                ))
+              ) : (
+                <div className="tag">
+                  <Skeleton width="50px" />
+                </div>
+              )}
             </div>
             <div className="movie-rating">
               {info ? `${info.vote_average * 10}%` : <Skeleton width="50px" />}
@@ -121,6 +126,7 @@ const Movie: React.FC = () => {
 };
 
 const formatCurrency = (value: number) =>
+  // value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
   '$' + Number(value.toFixed(2)).toLocaleString();
 
 export default Movie;

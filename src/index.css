@@ -45,6 +45,6 @@ input {
   background-color: #ffffff;
   font-family: 'Abel', sans-serif;
   color: var(--accent-color);
-  padding: 2px 8px;
-  margin-right: 6px;
+  padding: 1px 8px;
+  margin-right: 4px;
 }

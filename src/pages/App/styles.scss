@@ -2,13 +2,14 @@
   background-color: var(--header-bg-color);
   color: var(--header-text-color);
   text-align: center;
-  padding: 8px;
+  padding: 10px;
+
+  a {
+    text-decoration: none;
+    color: var(--header-text-color);
+  }
 
   h1 {
-    font-size: 28px;
+    font-size: 26px;
   }
-}
-
-.content {
-  margin: 0 56px;
 }

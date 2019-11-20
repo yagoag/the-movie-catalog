@@ -9,7 +9,9 @@ const App: React.FC = () => {
     <Provider store={SearchStore}>
       <div>
         <header className="header">
-          <h1>The Movie Catalog</h1>
+          <a href="/">
+            <h1>The Movie Catalog</h1>
+          </a>
         </header>
         <div className="content">
           <Routes />
