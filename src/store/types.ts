@@ -7,7 +7,7 @@ export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
 export const SET_MOVIE_GENRES = 'SET_MOVIE_GENRES';
 export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SET_RESULT_PAGE = 'SET_RESULT_PAGE';
-export const SET_TOTAL_PAGES = 'SET_TOTAL_PAGES';
+export const SET_TOTAL_RESULTS = 'SET_TOTAL_RESULTS';
 export const SET_VIRTUAL_RESULT_PAGE = 'SET_VIRTUAL_RESULT_PAGE';
 
 export interface FetchSearchResultsAction {
@@ -46,8 +46,8 @@ interface SetResultPageAction {
 }
 
 interface SetTotalPagesAction {
-  type: typeof SET_TOTAL_PAGES;
-  totalPages: number;
+  type: typeof SET_TOTAL_RESULTS;
+  totalResults: number;
 }
 
 interface SetVirtualResultPageAction {
@@ -72,7 +72,7 @@ export interface SearchState {
   genres: Map<number, string>;
   isLoading: boolean;
   currentPage: number;
-  totalPages: number;
+  totalResults: number;
   virtualPage: number;
 }
 

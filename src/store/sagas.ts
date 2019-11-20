@@ -12,7 +12,7 @@ import {
   setMovieGenres,
   setIsLoading,
   setResultPage,
-  setTotalPages,
+  setTotalResults,
   setSearchTerm,
 } from './actions';
 
@@ -44,10 +44,10 @@ export function* fetchSearchResults(action: FetchSearchResultsAction) {
       params: { ...api.defaults.params, query: action.term },
     });
 
-    const { results, page, total_pages } = data;
+    const { results, page, total_results } = data;
 
     yield put(setResultPage(page));
-    yield put(setTotalPages(total_pages));
+    yield put(setTotalResults(total_results));
     yield put(setSearchResults(results));
   }
 
@@ -63,10 +63,10 @@ export function* fetchSearchResultPage(action: FetchSearchResultPageAction) {
     params: { ...api.defaults.params, query: term, page: action.page },
   });
 
-  const { results, page, total_pages } = data;
+  const { results, page, total_results } = data;
 
   yield put(setResultPage(page));
-  yield put(setTotalPages(total_pages));
+  yield put(setTotalResults(total_results));
   yield put(setSearchResults(results));
   yield put(setIsLoading(false));
 }

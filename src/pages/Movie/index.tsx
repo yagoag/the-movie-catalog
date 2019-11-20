@@ -114,7 +114,7 @@ const Movie: React.FC = () => {
           <iframe
             id="ytplayer"
             title={`${info.title} Trailer`}
-            src={`https://www.youtube.com/embed?listType=search&list=${info.title}&yt:stretch=16:9`}
+            src={`https://www.youtube.com/embed?listType=search&list=${info.title}+Trailer&yt:stretch=16:9`}
             frameBorder="0"
           ></iframe>
         )}

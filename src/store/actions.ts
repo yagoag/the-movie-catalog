@@ -6,7 +6,7 @@ import {
   SET_MOVIE_GENRES,
   SET_IS_LOADING,
   SET_RESULT_PAGE,
-  SET_TOTAL_PAGES,
+  SET_TOTAL_RESULTS,
   SET_SEARCH_TERM,
   SET_VIRTUAL_RESULT_PAGE,
   PAGE_FETCH_REQUESTED,
@@ -64,10 +64,10 @@ export function setResultPage(currentPage: number): SearchActionTypes {
   };
 }
 
-export function setTotalPages(totalPages: number): SearchActionTypes {
+export function setTotalResults(totalResults: number): SearchActionTypes {
   return {
-    type: SET_TOTAL_PAGES,
-    totalPages,
+    type: SET_TOTAL_RESULTS,
+    totalResults,
   };
 }
 

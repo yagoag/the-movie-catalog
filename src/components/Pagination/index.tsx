@@ -8,7 +8,7 @@ export const pageSize = 20;
 export const virtualPageSize = 5;
 
 const Pagination: React.FC = () => {
-  const totalPages = useSelector((state: SearchState) => state.totalPages);
+  const totalResults = useSelector((state: SearchState) => state.totalResults);
   const page = useSelector((state: SearchState) => state.currentPage);
   const virtualPage = useSelector((state: SearchState) => state.virtualPage);
   const dispatch = useDispatch();
@@ -19,8 +19,9 @@ const Pagination: React.FC = () => {
     dispatch(fetchSearchResultPage(calculatedPage));
   }
 
-  const totalVirtualPages =
-    totalPages * (pageSize / (virtualPageSize || pageSize));
+  const totalVirtualPages = Math.ceil(
+    totalResults / (virtualPageSize || pageSize),
+  );
   const renderedPages = calculateRenderedPages(virtualPage, totalVirtualPages);
 
   return (
@@ -56,7 +57,7 @@ const calculateRenderedPages = (page: number, totalPages: number) => {
       renderedPages.push(i);
     }
   } else {
-    for (let i = totalPages - 4; i <= totalPages; i++) {
+    for (let i = Math.max(1, totalPages - 4); i <= totalPages; i++) {
       renderedPages.push(i);
     }
   }

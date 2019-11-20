@@ -9,20 +9,20 @@ import {
   ApiSearchResult,
   SET_IS_LOADING,
   SET_RESULT_PAGE,
-  SET_TOTAL_PAGES,
+  SET_TOTAL_RESULTS,
   SET_VIRTUAL_RESULT_PAGE,
   SET_SEARCH_TERM,
 } from './types';
 import searchSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
-const INITIAL_STATE: SearchState = {
+export const INITIAL_STATE: SearchState = {
   term: '',
   results: null,
   genres: new Map<number, string>(),
   isLoading: false,
   currentPage: 1,
-  totalPages: 0,
+  totalResults: 0,
   virtualPage: 1,
 };
 
@@ -50,8 +50,8 @@ function reducer(
       return { ...state, isLoading: action.isLoading };
     case SET_RESULT_PAGE:
       return { ...state, currentPage: action.currentPage };
-    case SET_TOTAL_PAGES:
-      return { ...state, totalPages: action.totalPages };
+    case SET_TOTAL_RESULTS:
+      return { ...state, totalResults: action.totalResults };
     case SET_VIRTUAL_RESULT_PAGE:
       return { ...state, virtualPage: action.virtualPage };
     default:
