@@ -13,7 +13,7 @@ export const getLanguageName = (code: string): string =>
 export const formatCurrency = (value: number): string =>
   '$' +
   Number(value + 0.001)
-    .toLocaleString()
+    .toLocaleString('pt-BR')
     .slice(0, -1);
 
 export const formatTime = (minutes: number): string => {
