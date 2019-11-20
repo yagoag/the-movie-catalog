@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import SearchResult from '../components/SearchResult';
 import { formatDate } from '../format';
+import Skeleton from 'react-loading-skeleton';
 
 const movie = {
   id: 1,
@@ -78,5 +79,11 @@ describe('SearchResult', () => {
     expect(wrapper.find('.movie-genres').children()).toHaveLength(
       movie.genres.length,
     );
+  });
+
+  it('shows skeleton loader', () => {
+    wrapper = shallow(<SearchResult {...movie} loading />);
+
+    expect(wrapper.find(Skeleton)).toHaveLength(6);
   });
 });

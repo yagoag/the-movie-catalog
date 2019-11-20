@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useRouteMatch, match } from 'react-router';
+import { useParams } from 'react-router';
 import Skeleton from 'react-loading-skeleton';
 import { api } from '../../services/api';
 import { Genre } from '../../components/SearchResult';
-import { formatDate, translateStatus, getLanguageName } from '../../format';
+import {
+  formatDate,
+  translateStatus,
+  getLanguageName,
+  formatCurrency,
+  formatTime,
+} from '../../format';
 import './styles.scss';
 
 interface ApiMovieInfo {
@@ -21,19 +27,18 @@ interface ApiMovieInfo {
 }
 
 const Movie: React.FC = () => {
-  const routeMatch: match<{ id: string }> = useRouteMatch();
+  const { id } = useParams();
   const [info, setInfo] = useState<ApiMovieInfo | null>(null);
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get(`/movie/${routeMatch.params.id}`, {
+      const { data } = await api.get(`/movie/${id}`, {
         params: { ...api.defaults.params },
       });
 
       setInfo(data);
-      console.log({ data });
     })();
-  }, [routeMatch.params.id]);
+  }, [id]);
 
   return (
     <>
@@ -45,40 +50,50 @@ const Movie: React.FC = () => {
       </div>
       <div className="movie-details">
         <div className="content">
-          <div className="section">
+          <div className="section overview">
             <h3>Sinopse</h3>
-            {info ? info.overview : <Skeleton count={5} />}
+            <div className="overview-text">
+              {info ? info.overview : <Skeleton count={5} />}
+            </div>
           </div>
-          <div className="section">
+          <div className="section general-info">
             <h3>Informações</h3>
             <div className="info-table">
-              <div>
+              <div className="status">
                 <h4>Situação</h4>
-                {info && translateStatus(info.status)}
+                <div>{info && translateStatus(info.status)}</div>
               </div>
-              <div>
+              <div className="language">
                 <h4>Idioma</h4>
-                {info ? getLanguageName(info.original_language) : <Skeleton />}
+                <div>
+                  {info ? (
+                    getLanguageName(info.original_language)
+                  ) : (
+                    <Skeleton />
+                  )}
+                </div>
               </div>
-              <div>
+              <div className="runtime">
                 <h4>Duração</h4>
-                {info ? formatTime(info.runtime) : <Skeleton />}
+                <div>{info ? formatTime(info.runtime) : <Skeleton />}</div>
               </div>
-              <div>
+              <div className="budget">
                 <h4>Orçamento</h4>
-                {info ? formatCurrency(info.budget) : <Skeleton />}
+                <div>{info ? formatCurrency(info.budget) : <Skeleton />}</div>
               </div>
-              <div>
+              <div className="revenue">
                 <h4>Receita</h4>
-                {info ? formatCurrency(info.revenue) : <Skeleton />}
+                <div>{info ? formatCurrency(info.revenue) : <Skeleton />}</div>
               </div>
-              <div>
+              <div className="profit">
                 <h4>Lucro</h4>
-                {info ? (
-                  formatCurrency(info.revenue - info.budget)
-                ) : (
-                  <Skeleton />
-                )}
+                <div>
+                  {info ? (
+                    formatCurrency(info.revenue - info.budget)
+                  ) : (
+                    <Skeleton />
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -86,7 +101,9 @@ const Movie: React.FC = () => {
             <div className="movie-genres">
               {info ? (
                 info.genres.map(genre => (
-                  <div className="tag">{genre.name}</div>
+                  <div key={genre.id} className="tag">
+                    {genre.name}
+                  </div>
                 ))
               ) : (
                 <div className="tag">
@@ -110,35 +127,19 @@ const Movie: React.FC = () => {
         )}
       </div>
       <div className="movie-trailer">
-        {info && (
+        {info ? (
           <iframe
             id="ytplayer"
             title={`${info.title} Trailer`}
             src={`https://www.youtube.com/embed?listType=search&list=${info.title}+Trailer&yt:stretch=16:9`}
             frameBorder="0"
           ></iframe>
+        ) : (
+          <Skeleton width="100vw" height="56vw" />
         )}
       </div>
     </>
   );
-};
-
-const formatCurrency = (value: number): string =>
-  '$' +
-  Number(value + 0.001)
-    .toLocaleString()
-    .slice(0, -1);
-
-const formatTime = (minutes: number): string => {
-  let formatted: string = '';
-
-  if (minutes / 60 > 1) {
-    formatted += `${Math.floor(minutes / 60)}h `;
-  }
-
-  formatted += `${minutes % 60}min`;
-
-  return formatted;
 };
 
 export default Movie;
