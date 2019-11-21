@@ -51,6 +51,7 @@ const movie = {
 
 mock.onGet('/movie/1').reply(200, movie);
 mock.onGet('/movie/2').reply(200, null);
+window.scrollTo = jest.fn();
 
 describe('Movie', () => {
   let wrapper: ReactWrapper;
@@ -80,7 +81,7 @@ describe('Movie', () => {
       </MemoryRouter>,
     );
 
-    expect(wrapper.find(Skeleton)).toHaveLength(12);
+    expect(wrapper.find(Skeleton)).toHaveLength(13);
   });
 
   it('does not render skeleton after loading', () => {
