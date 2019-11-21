@@ -2,14 +2,14 @@
   display: flex;
   flex-direction: row;
   background-color: var(--neutral-bg-color);
-  margin-top: 30px;
+  margin-top: 46px;
 
   a {
     text-decoration: none;
   }
 
   .movie-poster {
-    width: 135px;
+    width: 200px;
     height: auto;
   }
 
@@ -20,17 +20,17 @@
 
   .movie-rating {
     background-color: var(--accent-color);
-    border: 3px solid var(--header-text-color);
-    box-shadow: 0 0 0 2px var(--accent-color);
+    border: 4px solid var(--header-text-color);
+    box-shadow: 0 0 0 3px var(--accent-color);
     border-radius: 50vh;
-    width: 37px;
-    height: 37px;
+    width: 58px;
+    height: 58px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 14px;
+    font-size: 22px;
     color: var(--header-text-color);
-    margin: -22px 9px 0 12px;
+    margin: -34px 14px 0 16px;
   }
 
   .movie-title {
@@ -39,15 +39,16 @@
     flex: 1;
     display: flex;
     align-items: flex-end;
-    padding: 12px 0 2px 63px;
+    padding: 18px 0 1px 96px;
     margin: 0;
-    font-size: 24px;
+    font-size: 36px;
   }
 
   .movie-date {
     color: var(--text-color);
     font-weight: 300;
-    margin-top: 2px;
+    font-size: 18px;
+    margin-top: 3px;
   }
 
   .search-result-subtitle {
@@ -56,7 +57,7 @@
   }
 
   .movie-overview {
-    margin: 14px 20px;
+    margin: 20px 26px;
   }
 
   .movie-genres {

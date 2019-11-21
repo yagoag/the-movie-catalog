@@ -43,9 +43,9 @@ const Movie: React.FC = () => {
   return (
     <>
       <div className="movie-title">
-        <h1>{info ? info.title : <Skeleton />}</h1>
+        <h1>{info ? info.title : <Skeleton width="250px" />}</h1>
         <div className="date">
-          {info ? formatDate(info.release_date) : <Skeleton />}
+          {info ? formatDate(info.release_date) : <Skeleton width="100px" />}
         </div>
       </div>
       <div className="movie-details">
@@ -61,7 +61,7 @@ const Movie: React.FC = () => {
             <div className="info-table">
               <div className="status">
                 <h4>Situação</h4>
-                <div>{info && translateStatus(info.status)}</div>
+                <div>{info ? translateStatus(info.status) : <Skeleton />}</div>
               </div>
               <div className="language">
                 <h4>Idioma</h4>
@@ -112,18 +112,18 @@ const Movie: React.FC = () => {
               )}
             </div>
             <div className="movie-rating">
-              {info ? `${info.vote_average * 10}%` : <Skeleton width="50px" />}
+              {info ? `${info.vote_average * 10}%` : <Skeleton width="55px" />}
             </div>
           </div>
         </div>
         {info ? (
           <img
             className="poster"
-            src={`https://image.tmdb.org/t/p/w300${info.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w400${info.poster_path}`}
             alt={info.title}
           />
         ) : (
-          <Skeleton width="225px" height="100%" />
+          <Skeleton width="336px" height="100%" />
         )}
       </div>
       <div className="movie-trailer">

@@ -20,7 +20,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
-  font-size: 12px;
+  font-size: 16px;
 }
 
 code {
@@ -45,6 +45,6 @@ input {
   background-color: #ffffff;
   font-family: 'Abel', sans-serif;
   color: var(--accent-color);
-  padding: 1px 8px;
-  margin-right: 4px;
+  padding: 2px 12px;
+  margin-right: 8px;
 }
