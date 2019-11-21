@@ -4,7 +4,7 @@ import SearchResult from '../components/SearchResult';
 import { formatDate } from '../format';
 import Skeleton from 'react-loading-skeleton';
 
-const movie = {
+export const movie = {
   id: 1,
   title: 'The Fast and the Furious: Tokyo Drift',
   rating: 6.2,
