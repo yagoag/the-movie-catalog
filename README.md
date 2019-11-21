@@ -1,4 +1,9 @@
+<div align="center">
+  <img src="https://repository-images.githubusercontent.com/222506990/491acc80-0be9-11ea-9fdd-cbb85c8a8910" style="width: 100%; max-width: 640px;">
+
 # The Movie Catalog
+
+</div>
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/6e253ad1-b466-4603-9af7-efd1b3a5faa1/deploy-status)](https://app.netlify.com/sites/themoviecatalog/deploys)
 
