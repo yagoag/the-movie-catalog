@@ -31,6 +31,8 @@ const Movie: React.FC = () => {
   const [info, setInfo] = useState<ApiMovieInfo | null>(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     (async () => {
       const { data } = await api.get(`/movie/${id}`, {
         params: { ...api.defaults.params },
