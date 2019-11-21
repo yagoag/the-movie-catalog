@@ -29,15 +29,11 @@ export function* fetchSearchResults(action: FetchSearchResultsAction) {
   } else {
     yield put(setIsLoading(true));
 
-    if (!(yield select(getGenres)).keys().length) {
+    if (!(yield select(getGenres)).size) {
       const genres = yield call(api, '/genre/movie/list', {
         params: { ...api.defaults.params },
       });
       yield put(setMovieGenres(genres.data.genres));
-      // TODO: The results are paged, we might need to go over all of them.
-      // In that case, it might be better to separate this call into another
-      // action, and maybe run it and store in local storage so we don't need
-      // to repeat it every single time the page reloads.
     }
 
     yield delay(500);

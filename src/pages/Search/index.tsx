@@ -35,16 +35,7 @@ const Search: React.FC = () => {
     <div className="search">
       <SearchBar />
       {isLoading ? (
-        <SearchResult
-          id={0}
-          title=""
-          date=""
-          rating={0}
-          overview=""
-          genres={[]}
-          posterUrl=""
-          loading
-        />
+        <SearchResult {...emptyResult} loading />
       ) : searchResults ? (
         searchResults.length !== 0 ? (
           shownResults.map(result => (
@@ -61,6 +52,16 @@ const Search: React.FC = () => {
       )}
     </div>
   );
+};
+
+const emptyResult = {
+  id: 0,
+  title: '',
+  date: '',
+  rating: 0,
+  overview: '',
+  genres: [],
+  posterUrl: '',
 };
 
 export default Search;
