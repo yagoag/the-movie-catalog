@@ -1,5 +1,4 @@
 const status = new Map<string, string>();
-status.set('ab', 'Abecásio');
 status.set('Rumored', 'Rumor');
 status.set('Planned', 'Previsto');
 status.set('In Production', 'Em Produção');
