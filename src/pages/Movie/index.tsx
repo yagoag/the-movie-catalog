@@ -26,8 +26,12 @@ interface ApiMovieInfo {
   original_language: string;
 }
 
+interface MovieParams {
+  id: string;
+}
+
 const Movie: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<MovieParams>();
   const [info, setInfo] = useState<ApiMovieInfo | null>(null);
 
   useEffect(() => {
@@ -102,7 +106,7 @@ const Movie: React.FC = () => {
           <div className="last-details">
             <div className="movie-genres">
               {info ? (
-                info.genres.map(genre => (
+                info.genres.map((genre) => (
                   <div key={genre.id} className="tag">
                     {genre.name}
                   </div>
